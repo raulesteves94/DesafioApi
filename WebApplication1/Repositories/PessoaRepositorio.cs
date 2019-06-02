@@ -7,7 +7,7 @@ namespace WebApplication1.Repositories
 {
     public class PessoaRepositorio : IPessoaRepositorio
     {
-        private List<Pessoa> Pessoas = new List<Pessoa>();
+        private List<Pessoa> pessoas = new List<Pessoa>();
         private int _nextId = 1;
 
         public PessoaRepositorio()
@@ -26,24 +26,24 @@ namespace WebApplication1.Repositories
             {
                 throw new ArgumentNullException("pessoa");
             }
-            pessoa.Codigo = _nextId++;
-            Pessoas.Add(pessoa);
+            pessoa.Id = _nextId++;
+            pessoas.Add(pessoa);
             return pessoa;
         }
 
-        public Pessoa Get(int codigo)
+        public Pessoa Get(int id)
         {
-            return Pessoas.Find(p => p.Codigo == codigo);
+            return pessoas.Find(p => p.Id == id);
         }
 
         public IEnumerable<Pessoa> GetAll()
         {
-            return Pessoas;
+            return pessoas;
         }
 
-        public void Remove(int codigo)
+        public void Remove(int id)
         {
-            Pessoas.RemoveAll(p => p.Codigo == codigo);
+            pessoas.RemoveAll(p => p.Id == id);
         }
 
         public bool Update(Pessoa pessoa)
@@ -53,14 +53,14 @@ namespace WebApplication1.Repositories
                 throw new ArgumentNullException("pessoa");
             }
 
-            int index = Pessoas.FindIndex(p => p.Codigo == pessoa.Codigo);
+            int index = pessoas.FindIndex(p => p.Id == pessoa.Id);
 
             if (index == -1)
             {
                 return false;
             }
-            Pessoas.RemoveAt(index);
-            Pessoas.Add(pessoa);
+            pessoas.RemoveAt(index);
+            pessoas.Add(pessoa);
             return true;
         }
     }

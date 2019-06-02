@@ -42,36 +42,36 @@ namespace WebApplication1.Controllers
             pessoa = repositorio.Add(pessoa);
             var response = Request.CreateResponse(HttpStatusCode.Created, pessoa);
 
-            string uri = Url.Link("DefaultApi", new { codigo = pessoa.Codigo });
+            string uri = Url.Link("DefaultApi", new { id = pessoa.Id });
             response.Headers.Location = new Uri(uri);
             return response;
         }
 
-        public HttpResponseMessage PutPessoa(int codigo, Pessoa pessoa)
+        public HttpResponseMessage PutPessoa(int id, Pessoa pessoa)
         {
-            pessoa.Codigo = codigo;
+            var response = Request.CreateResponse(HttpStatusCode.Created, pessoa);
+
+            pessoa.Id = id;
             if (!repositorio.Update(pessoa))
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            var response = Request.CreateResponse(HttpStatusCode.Accepted, pessoa);
-
-            string uri = Url.Link("DefaultApi", new { codigo = pessoa.Codigo });
+            string uri = Url.Link("DefaultApi", new { id = pessoa.Id });
             response.Headers.Location = new Uri(uri);
             return response;
         }
 
-        public void DeletePessoa(int codigo)
+        public void DeletePessoa(int id)
         {
-            Pessoa pessoa = repositorio.Get(codigo);
+            Pessoa pessoa = repositorio.Get(id);
 
             if (pessoa == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            repositorio.Remove(codigo);
+            repositorio.Remove(id);
         }
     }
 }

@@ -6,8 +6,7 @@ namespace WebApplication1.Models
 {
     public class Pessoa
     {
-        [Key]
-        public int Codigo { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
